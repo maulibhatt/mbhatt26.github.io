@@ -5,7 +5,6 @@ import {
     getDatabase,
     ref,
     get,
-    set,
     update,
     onValue,
     serverTimestamp
@@ -29,13 +28,17 @@ const database = getDatabase(app);
 const usernameForm = document.querySelector("#username-form");
 const usernameInput = document.querySelector("#username");
 const usernameError = document.querySelector("#username-error");
+const pageLoading = document.querySelector("#bucketlist-loading");
+const menuLoading = document.querySelector("#menu-loading");
 const selectionSection = document.querySelector("#profile-selection");
 const profileSection = document.querySelector("#bucketlist-profile");
 const profileHeading = document.querySelector("#profile-heading");
 const signOutMenuItem = document.querySelector("#sign-out-menu-item");
 const signOutButton = document.querySelector("#sign-out");
 const completionButtons = document.querySelectorAll("[data-completion-toggle]");
+const bucketListItemIds = Array.from(completionButtons, button => button.dataset.completionToggle);
 const hiddenClass = "bucketlist-hidden";
+let activeBucketList = {};
 
 function setVisible(element, isVisible) {
     element.classList.toggle(hiddenClass, !isVisible);
@@ -50,6 +53,23 @@ function isValidUsername(username) {
     return /^[a-z0-9_-]{3,24}$/.test(username);
 }
 
+function setLoading(isLoading) {
+    setVisible(pageLoading, isLoading);
+    setVisible(menuLoading, isLoading);
+}
+
+function leaderboardRecord(username, bucketList = {}) {
+    const completed = bucketListItemIds.filter(
+        itemId => bucketList[itemId]?.completed === true
+    ).length;
+
+    return {
+        username,
+        completed,
+        updatedAt: serverTimestamp()
+    };
+}
+
 async function selectProfile(rawUsername) {
     const username = normalizeUsername(rawUsername);
 
@@ -61,14 +81,26 @@ async function selectProfile(rawUsername) {
 
     const profileRef = ref(database, `users/${username}`);
     const snapshot = await get(profileRef);
+    let profile = snapshot.val();
 
     if (!snapshot.exists()) {
-        await set(profileRef, {
+        profile = {
             displayName: rawUsername.trim(),
             createdAt: Date.now(),
             updatedAt: Date.now(),
             bucketList: {}
+        };
+
+        await update(ref(database), {
+            [`users/${username}`]: profile,
+            [`leaderboard/users/${username}`]: leaderboardRecord(username, profile.bucketList)
         });
+    } else {
+        // Adds existing users to the separate leaderboard the next time they sign in.
+        await update(
+            ref(database, `leaderboard/users/${username}`),
+            leaderboardRecord(username, profile.bucketList)
+        );
     }
 
     localStorage.setItem("bucketlistUsername", username);
@@ -76,6 +108,7 @@ async function selectProfile(rawUsername) {
 }
 
 function showProfile(username) {
+    setLoading(false);
     setVisible(selectionSection, false);
     setVisible(profileSection, true);
     setVisible(signOutMenuItem, true);
@@ -85,6 +118,7 @@ function showProfile(username) {
 }
 
 function showSignIn() {
+    setLoading(false);
     setVisible(profileSection, false);
     setVisible(selectionSection, true);
     setVisible(signOutMenuItem, false);
@@ -108,6 +142,8 @@ function watchProfile(username) {
 }
 
 function renderBucketList(bucketList) {
+    activeBucketList = bucketList;
+
     completionButtons.forEach(button => {
         const itemId = button.dataset.completionToggle;
         const isCompleted = bucketList[itemId]?.completed === true;
@@ -138,21 +174,31 @@ function celebrateCompletion(button) {
 }
 
 async function updateItem(username, itemId, changes) {
-    const itemRef = ref(
-        database,
-        `users/${username}/bucketList/${itemId}`
-    );
+    const nextBucketList = {
+        ...activeBucketList,
+        [itemId]: {
+            ...activeBucketList[itemId],
+            ...changes
+        }
+    };
+    const updates = {
+        [`users/${username}/updatedAt`]: serverTimestamp(),
+        [`leaderboard/users/${username}`]: leaderboardRecord(username, nextBucketList)
+    };
 
-    await update(itemRef, changes);
-
-    await update(ref(database, `users/${username}`), {
-        updatedAt: serverTimestamp()
+    Object.entries(changes).forEach(([field, value]) => {
+        updates[`users/${username}/bucketList/${itemId}/${field}`] = value;
     });
+
+    await update(ref(database), updates);
 }
 
 usernameForm.addEventListener("submit", async event => {
     event.preventDefault();
     usernameError.textContent = "";
+    setVisible(selectionSection, false);
+    setVisible(signOutMenuItem, false);
+    setLoading(true);
 
     try {
         await selectProfile(usernameInput.value);
@@ -161,6 +207,7 @@ usernameForm.addEventListener("submit", async event => {
         usernameError.textContent = error?.message?.toLowerCase().includes("permission denied")
             ? "Firebase denied access. Publish the Realtime Database rules for username profiles."
             : error.message || "Unable to load that profile.";
+        showSignIn();
     }
 });
 
@@ -203,7 +250,12 @@ const rememberedUsername =
     localStorage.getItem("bucketlistUsername");
 
 if (rememberedUsername && isValidUsername(rememberedUsername)) {
-    showProfile(rememberedUsername);
+    selectProfile(rememberedUsername).catch(error => {
+        console.error("Unable to resume profile:", error);
+        localStorage.removeItem("bucketlistUsername");
+        usernameError.textContent = "Unable to resume that profile.";
+        showSignIn();
+    });
 } else {
     localStorage.removeItem("bucketlistUsername");
     showSignIn();

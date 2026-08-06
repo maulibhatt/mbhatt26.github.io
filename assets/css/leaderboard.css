@@ -1,0 +1,98 @@
+/* Compiled from assets/sass/leaderboard.scss. */
+.bucketlist-hidden {
+  display: none !important;
+}
+
+.page-loader {
+  align-items: center;
+  color: #1cd9d6;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  min-height: 12em;
+  text-align: center;
+}
+
+.page-loader .fa-circle-notch {
+  color: #ff33ad;
+  font-size: 2.25em;
+}
+
+.menu-loader {
+  color: #1cd9d6;
+}
+
+.menu-loader .fa-circle-notch {
+  font-size: 0.8em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader .fa-spin,
+  .menu-loader .fa-spin {
+    animation: none;
+  }
+}
+
+.leaderboard__headings,
+.leaderboard__row {
+  align-items: center;
+  display: grid;
+  gap: 2em;
+  grid-template-columns: minmax(8em, 12em) 1fr;
+}
+
+.leaderboard__headings {
+  margin-bottom: 1em;
+}
+
+.leaderboard__headings h2 {
+  margin-bottom: 0;
+}
+
+.leaderboard__row {
+  border-top: solid 1px rgba(255, 255, 255, 0.15);
+  padding: 1.5em 0;
+}
+
+.leaderboard__username {
+  overflow-wrap: anywhere;
+}
+
+.leaderboard__progress {
+  background: rgba(255, 255, 255, 0.08);
+  border: solid 1px rgba(255, 255, 255, 0.15);
+  border-radius: 2em;
+  height: 2.75em;
+  overflow: hidden;
+  position: relative;
+}
+
+.leaderboard__fill {
+  background: linear-gradient(90deg, #1cd9d6, #ff33ad);
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.leaderboard__value {
+  font-weight: bold;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#leaderboard-status:empty {
+  display: none;
+}
+
+@media screen and (max-width: 736px) {
+  .leaderboard__headings {
+    display: none;
+  }
+
+  .leaderboard__row {
+    gap: 0.75em;
+    grid-template-columns: 1fr;
+  }
+}

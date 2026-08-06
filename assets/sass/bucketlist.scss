@@ -7,6 +7,37 @@
     display: none !important;
 }
 
+.page-loader {
+    align-items: center;
+    color: #1cd9d6;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    min-height: 12em;
+    text-align: center;
+
+    .fa-circle-notch {
+        color: #ff33ad;
+        font-size: 2.25em;
+    }
+}
+
+.menu-loader {
+    color: #1cd9d6;
+
+    .fa-circle-notch {
+        font-size: 0.8em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-loader .fa-spin,
+    .menu-loader .fa-spin {
+        animation: none;
+    }
+}
+
 #profile-selection {
     background: rgba(255, 255, 255, 0.05);
     border: solid 1px rgba(255, 255, 255, 0.15);

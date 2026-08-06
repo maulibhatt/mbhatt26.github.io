@@ -50,6 +50,10 @@
         <nav>
             <ul>
                 <li><a href="bucketlist.html" class="active">Bucket List</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li id="menu-loading" class="menu-loader" aria-label="Loading menu">
+                    <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
+                </li>
                 <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true"><a href="#" id="sign-out">Sign Out</a></li>
             </ul>
         </nav>
@@ -59,7 +63,12 @@
     <div id="wrapper" class="page_content">
         <section id="main" class="wrapper">
             <div class="inner">
-                <section id="profile-selection">
+                <section id="bucketlist-loading" class="page-loader" role="status">
+                    <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
+                    <span>Loading your bucket list...</span>
+                </section>
+
+                <section id="profile-selection" class="bucketlist-hidden" aria-hidden="true">
                     <h1>The 20s Bucket List</h1>
 
                     <form id="username-form">

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html class="page_html">
+<head>
+    <title>20s Bucket List Leaderboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/leaderboard.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload page_body">
+    <header id="header">
+        <a href="/" class="title" id="home_button_page">
+            <svg id="logo_menu" class="logo" xmlns="http://www.w3.org/2000/svg" version="1.1" width="266px"
+                height="206px" viewBox="-0.5 -0.5 266 206" aria-label="Home">
+                <g>
+                    <path d="M 12 175 L 12 55 L 132 165 L 252 55 L 252 175" fill="none" stroke="#ff33ad"
+                        stroke-width="15" stroke-miterlimit="10" />
+                    <path d="M 5 200 Q 5 200 260 200" fill="none" stroke="#1cd9d6" stroke-width="10"
+                        stroke-miterlimit="10" />
+                    <path d="M 72 75 L 132 5 L 192 75" fill="none" stroke="#1cd9d6" stroke-width="10"
+                        stroke-miterlimit="10" />
+                    <path d="M 52 135 L 62 150 L 52 165 L 42 150 Z" fill="#ffffff" stroke="#091020" />
+                    <path d="M 212 135 L 222 150 L 212 165 L 202 150 Z" fill="#ffffff" stroke="#091020" />
+                    <path d="M 132 75 L 142 90 L 132 105 L 122 90 Z" fill="#ffffff" stroke="#091020" />
+                </g>
+            </svg>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="bucketlist.html">Bucket List</a></li>
+                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+                <li id="menu-loading" class="menu-loader" aria-label="Loading menu">
+                    <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
+                </li>
+                <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true"><a href="#" id="sign-out">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="wrapper" class="page_content">
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1>Leaderboard</h1>
+                <section class="leaderboard" aria-labelledby="leaderboard-title">
+                    <div class="leaderboard__headings" aria-hidden="true">
+                        <h2>Username</h2>
+                        <h2 id="leaderboard-title">How complete were your 20s?</h2>
+                    </div>
+                    <div id="leaderboard-loading" class="page-loader" role="status">
+                        <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
+                        <span>Loading leaderboard...</span>
+                    </div>
+                    <p id="leaderboard-status" class="bucketlist-hidden" role="status" aria-hidden="true"></p>
+                    <div id="leaderboard-rows" aria-live="polite"></div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <footer id="footer" class="wrapper alt page_footer">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; Mauli Bhatt 2026</li>
+                <li><a href="https://mauli.dev">mauli.dev</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/leaderboard.js"></script>
+</body>
+</html>
