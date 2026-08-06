@@ -1,0 +1,88 @@
+/*
+ * Bucket-list page styles.
+ * Compile this file to assets/css/bucketlist.css after making changes.
+ */
+
+.bucketlist-hidden {
+    display: none !important;
+}
+
+#profile-selection {
+    background: rgba(255, 255, 255, 0.05);
+    border: solid 1px rgba(255, 255, 255, 0.15);
+    border-radius: 0.25em;
+    padding: 1.5em 1.5em 2.25em;
+    position: relative;
+    max-width: 36em;
+
+    form {
+        margin-bottom: 0;
+    }
+
+    form > button {
+        display: block;
+        margin: 2.25em auto 0;
+    }
+}
+
+#username-error {
+    color: #ff33ad;
+    margin: 1em 0 0;
+
+    &:empty {
+        display: none;
+    }
+}
+
+#bucketlist-content {
+    min-height: 12em;
+}
+
+// Reusable card for each future bucket-list item. The relative positioning
+// gives absolutely positioned badges/actions a boundary of their own.
+.bucketlist-card {
+    background: rgba(28, 217, 214, 0.08);
+    border: solid 1px rgba(28, 217, 214, 0.25);
+    border-radius: 0.25em;
+    margin-bottom: 1em;
+    padding: 1.5em 1.5em 2.25em;
+    position: relative;
+    text-align: center;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+
+    &__actions {
+        margin-top: 2.25em;
+        position: static;
+
+        [data-completion-toggle].primary:hover,
+        [data-completion-toggle].primary:focus {
+            border-color: #1cd9d6 !important;
+        }
+    }
+
+    &--bonus {
+        border-color: rgba(255, 51, 173, 0.45);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #profile-selection,
+    .bucketlist-card {
+        padding: 1em 1em 1.5em;
+    }
+
+    #profile-selection {
+        padding-bottom: 2.25em;
+    }
+
+    .bucketlist-card__actions {
+        margin-top: 1.5em;
+    }
+}

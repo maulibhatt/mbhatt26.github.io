@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html class="page_html">
+
+<head>
+    <title>Mauli's Bucket List</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/bucketlist.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EF3HBPX1XR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-EF3HBPX1XR');
+    </script>
+</head>
+
+<body class="is-preload page_body">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="/" class="title" id="home_button_page">
+            <svg id="logo_menu" class="logo" xmlns="http://www.w3.org/2000/svg" version="1.1" width="266px"
+                height="206px" viewBox="-0.5 -0.5 266 206">
+                <g>
+                    <path d="M 12 175 L 12 55 L 132 165 L 252 55 L 252 175" fill="none" stroke="#ff33ad"
+                        stroke-width="15" stroke-miterlimit="10" />
+                    <path d="M 5 200 Q 5 200 260 200" fill="none" stroke="#1cd9d6" stroke-width="10"
+                        stroke-miterlimit="10" />
+                    <path d="M 72 75 L 132 5 L 192 75" fill="none" stroke="#1cd9d6" stroke-width="10"
+                        stroke-miterlimit="10" />
+                    <path d="M 52 135 L 62 150 L 52 165 L 42 150 Z" fill="#ffffff" stroke="#091020" />
+                    <path d="M 212 135 L 222 150 L 212 165 L 202 150 Z" fill="#ffffff" stroke="#091020" />
+                    <path d="M 132 75 L 142 90 L 132 105 L 122 90 Z" fill="#ffffff" stroke="#091020" />
+                </g>
+            </svg>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="bucketlist.html" class="active">Bucket List</a></li>
+                <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true"><a href="#" id="sign-out">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="page_content">
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <section id="profile-selection">
+                    <h1>The 20s Bucket List</h1>
+
+                    <form id="username-form">
+                        <label for="username">Enter your username</label>
+                        <input id="username" name="username" type="text" minlength="3" maxlength="24"
+                            pattern="[A-Za-z0-9_\-]+" autocomplete="username" required>
+
+                        <button type="submit">Continue</button>
+                    </form>
+
+                    <p id="username-error" role="alert"></p>
+                </section>
+
+                <section id="bucketlist-profile" class="bucketlist-hidden" aria-hidden="true">
+                    <h1 id="profile-heading">bucket list</h1>
+
+                    <!-- Signed-in bucket-list content goes inside this block. -->
+                    <div id="bucketlist-content">
+                        <div id="bucketlist-items" aria-live="polite">
+                            <article class="bucketlist-card" data-bucketlist-item="pool-party">
+                                <h2>Pool Party</h2>
+                                <p>The highlight of summers in your 20s: taking a dip in the pool at a pool party!</p>
+
+                                <div class="bucketlist-card__actions">
+                                    <button class="primary" type="button" data-completion-toggle="pool-party"
+                                        aria-pressed="false">Complete</button>
+                                </div>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="trip-to-europe">
+                                <h2>Trip to Europe</h2>
+                                <p>Play Bocce ball with a drink in one hand.</p>
+
+                                <div class="bucketlist-card__actions">
+                                    <button class="primary" type="button" data-completion-toggle="trip-to-europe"
+                                        aria-pressed="false">Complete</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt page_footer">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; Mauli Bhatt 2026</li>
+                <li><a href="https://mauli.dev">mauli.dev</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/bucketlist.js"></script>
+</body>
+
+</html>

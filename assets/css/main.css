@@ -4504,7 +4504,9 @@ input, select, textarea {
     background: rgba(28, 217, 214, 0.1);
 }
 
-
+#experience_section {
+	display: none;
+}
 
 #experience_section a {
     color: rgba(255, 51, 173, 1);
