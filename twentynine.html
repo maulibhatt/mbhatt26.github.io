@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html class="page_html">
 <head>
-    <title>20s Bucket List Leaderboard</title>
+    <title>Twenty Nine</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/leaderboard.css" />
+    <link rel="stylesheet" href="assets/css/twentynine.css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
@@ -33,8 +33,8 @@
         <nav>
             <ul>
                 <li><a href="bucketlist.html">Bucket List</a></li>
-                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
-                <li><a href="twentynine.html">Twenty Nine</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="twentynine.html" class="active">Twenty Nine</a></li>
             </ul>
         </nav>
     </header>
@@ -42,18 +42,19 @@
     <div id="wrapper" class="page_content">
         <section id="main" class="wrapper">
             <div class="inner">
-                <h1>Leaderboard</h1>
-                <section class="leaderboard" aria-labelledby="leaderboard-title">
-                    <div class="leaderboard__headings" aria-hidden="true">
-                        <h2>Username</h2>
-                        <h2 id="leaderboard-title">Items Completed</h2>
-                    </div>
-                    <div id="leaderboard-loading" class="page-loader" role="status">
-                        <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
-                        <span>Loading leaderboard...</span>
-                    </div>
-                    <p id="leaderboard-status" class="bucketlist-hidden" role="status" aria-hidden="true"></p>
-                    <div id="leaderboard-rows" aria-live="polite"></div>
+                <section class="twentynine-panel" aria-labelledby="twentynine-title">
+                    <h1 id="twentynine-title">Twenty Nine</h1>
+
+                    <form id="twentynine-form">
+                        <label for="twentynine-entry">What should be on Mauli's bucket list before she turns 30?</label>
+                        <input id="twentynine-entry" name="entry" type="text" maxlength="500" autocomplete="off">
+                        <div class="twentynine-panel__actions">
+                            <button type="submit">Add</button>
+                        </div>
+                    </form>
+
+                    <p id="twentynine-status" class="twentynine-status" role="status" aria-live="polite"></p>
+                    <ol id="twentynine-list" class="twentynine-list" aria-live="polite"></ol>
                 </section>
             </div>
         </section>
@@ -64,9 +65,6 @@
             <ul class="menu">
                 <li>&copy; Mauli Bhatt 2026</li>
                 <li><a href="https://mauli.dev">mauli.dev</a></li>
-                <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true">
-                    <a href="#" id="sign-out">Sign Out</a>
-                </li>
             </ul>
         </div>
     </footer>
@@ -77,6 +75,6 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/leaderboard.js"></script>
+    <script type="module" src="assets/js/twentynine.js"></script>
 </body>
 </html>

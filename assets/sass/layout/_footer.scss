@@ -36,3 +36,28 @@
 			}
 		}
 	}
+
+	@include breakpoint('<=xsmall') {
+		#footer.page_footer > .inner .menu {
+			display: flex;
+			flex-wrap: wrap;
+			width: 100%;
+
+			> li {
+				display: inline-block;
+				line-height: 1;
+				margin: 0;
+			}
+
+			> li:first-child {
+				flex: 0 0 100%;
+				margin-bottom: 0.75em;
+			}
+
+			> li:nth-child(3) {
+				border-left: solid 1px _palette(border);
+				margin-left: auto;
+				padding-left: 1.5em;
+			}
+		}
+	}

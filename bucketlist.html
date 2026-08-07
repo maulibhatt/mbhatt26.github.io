@@ -51,10 +51,7 @@
             <ul>
                 <li><a href="bucketlist.html" class="active">Bucket List</a></li>
                 <li><a href="leaderboard.html">Leaderboard</a></li>
-                <li id="menu-loading" class="menu-loader" aria-label="Loading menu">
-                    <i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
-                </li>
-                <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true"><a href="#" id="sign-out">Sign Out</a></li>
+                <li><a href="twentynine.html">Twenty Nine</a></li>
             </ul>
         </nav>
     </header>
@@ -88,24 +85,298 @@
                     <!-- Signed-in bucket-list content goes inside this block. -->
                     <div id="bucketlist-content">
                         <div id="bucketlist-items" aria-live="polite">
-                            <article class="bucketlist-card" data-bucketlist-item="pool-party">
-                                <h2>Pool Party</h2>
-                                <p>The highlight of summers in your 20s: taking a dip in the pool at a pool party!</p>
+                            <article class="bucketlist-card" data-bucketlist-item="neon-party">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-moon"></i>
+                                    </span>
+                                    <h2>Neon Party</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="neon-party" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Neon Party complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Some nights in your 20s stand out because they glow. Let's make tonight one of those
+                                    nights! Grab a glow bracelet, party with the fireflies, and if the pool is calling,
+                                    take a glowing moonlight dip!</p>
+                            </article>
 
-                                <div class="bucketlist-card__actions">
-                                    <button class="primary" type="button" data-completion-toggle="pool-party"
-                                        aria-pressed="false">Complete</button>
+                            <article class="bucketlist-card" data-bucketlist-item="karaoke-night">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-microphone-alt"></i>
+                                    </span>
+                                    <h2>Karaoke Night</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="karaoke-night" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Karaoke Night complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Talent optional, confidence mandatory. Grab the mic and give us your best karaoke
+                                    performance!</p>
+
+                                <div class="bucketlist-card__field">
+                                    <label for="karaoke-song">My song</label>
+                                    <input id="karaoke-song" type="text" maxlength="500"
+                                        data-required-input="karaoke-night" autocomplete="off">
+                                    <p class="bucketlist-card__error" data-required-input-error role="alert"></p>
                                 </div>
                             </article>
 
+                            <article class="bucketlist-card" data-bucketlist-item="sparks-fly">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-magic"></i>
+                                    </span>
+                                    <h2>Sparks Fly</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="sparks-fly" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Sparks Fly complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Light your sparkler with someone else's light. Sparks tend to fly between two special
+                                    people.</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="for-the-plot">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-dice"></i>
+                                    </span>
+                                    <h2>For the Plot</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="for-the-plot" role="checkbox" aria-checked="false"
+                                        aria-label="Mark For the Plot complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Is it a good idea? Probably not. Will it make a good story? Probably. I know it's a
+                                    questionable shot, but do it for the plot!</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="jello-shot">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-glass-whiskey"></i>
+                                    </span>
+                                    <h2>Jell-O Shot</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="jello-shot" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Jell-O Shot complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Why drink alcohol when you can eat it, said every 20 year old ever. Some tonguing
+                                    required!</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="pool-party">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-swimming-pool"></i>
+                                    </span>
+                                    <h2>Make a Splash</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="pool-party" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Make a Splash complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>The highlight of summers in your 20s: taking a dip in the pool at a pool party! Come on in, the water's fine :) </p>
+                            </article>
+
                             <article class="bucketlist-card" data-bucketlist-item="trip-to-europe">
-                                <h2>Trip to Europe</h2>
-                                <p>Play Bocce ball with a drink in one hand.</p>
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-globe-europe"></i>
+                                    </span>
+                                    <h2>Europe Trip</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="trip-to-europe" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Trip to Europe complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Play Bocce ball with a drink in one hand. Two teams take turns tossing your bocce balls, trying to get them as close as possible to the small target ball (pallino, tossed first). Scoring: 1 point for each ball closer than the other team's closest ball. First team to 8 points wins! </p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="make-new-friend">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-user-friends"></i>
+                                    </span>
+                                    <h2>Make a New Friend</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="make-new-friend" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Make a New Friend complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Making friends is an important part of your 20s. Chat with someone you haven't gotten
+                                    to know yet. You might just leave with a new friend.</p>
+
+                                <div class="bucketlist-card__field">
+                                    <label for="new-friend-username">My new friend's username</label>
+                                    <input id="new-friend-username" type="text" minlength="3" maxlength="24"
+                                        pattern="[A-Za-z0-9_\-]+" autocomplete="off">
+                                    <p id="new-friend-error" class="bucketlist-card__error" role="alert"></p>
+                                </div>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="play-beer-pong">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-beer"></i>
+                                    </span>
+                                    <h2>Play Beer Pong</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="play-beer-pong" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Play Beer Pong complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Everyone loves a competitive drinking sport. Shoot your shot, and don't get naked
+                                    miled!</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="party-polaroid">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-camera-retro"></i>
+                                    </span>
+                                    <h2>Shake It Like a Polaroid Picture</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="party-polaroid" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Shake It Like a Polaroid Picture complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Your 20s deserve photographic evidence: pics or it didn't happen. Take a party
+                                    Polaroid!</p>
 
                                 <div class="bucketlist-card__actions">
-                                    <button class="primary" type="button" data-completion-toggle="trip-to-europe"
-                                        aria-pressed="false">Complete</button>
+                                    <a class="button" href="#" data-upload-link data-upload-completes="party-polaroid"
+                                        data-upload-error-message="Upload a pic of the polaroid to complete this item"
+                                        target="_blank" rel="noopener">Upload</a>
                                 </div>
+                                <p class="bucketlist-card__error" data-upload-error role="alert"></p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="pass-exam">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </span>
+                                    <h2>Pass the Exam</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="pass-exam" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Pass the Exam complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Find the exam area, and do your best. Score at least 7/10 to pass; remember, C's get
+                                    degrees!</p>
+
+                                <div class="bucketlist-card__actions">
+                                    <a class="button" href="scantron.html" data-completion-gate="pass-exam"
+                                        data-completion-error-message="Take the test before completing this item">Scantron</a>
+                                </div>
+                                <p class="bucketlist-card__error" data-completion-error role="alert"></p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="one-for-the-road">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-road"></i>
+                                    </span>
+                                    <h2>One for the Road</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="one-for-the-road" role="checkbox" aria-checked="false"
+                                        aria-label="Mark One for the Road complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Mauli's on the final lap of her 20s, and she's made you do plenty of awesome bucket
+                                    list things tonight. Now it's your turn! Add something she has to experience,
+                                    accomplish, or try before turning 30.</p>
+
+                                <div class="bucketlist-card__actions">
+                                    <a class="button" href="twentynine.html">Add</a>
+                                </div>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="jungle-juice">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-cocktail"></i>
+                                    </span>
+                                    <h2>Have Jungle Juice</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="jungle-juice" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Have Jungle Juice complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>A boozy, questionable concoction that's practically a frat-party rite of passage.
+                                    Don't ask what's in it...just be brave and give it a try!</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="for-the-memories">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-heart"></i>
+                                    </span>
+                                    <h2>For the Memories</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="for-the-memories" role="checkbox" aria-checked="false"
+                                        aria-label="Mark For the Memories complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Mauli loves you and wants a keepsake. Get a picture with Mauli!</p>
+
+                                <div class="bucketlist-card__actions">
+                                    <a class="button" href="#" data-upload-link data-upload-completes="for-the-memories"
+                                        data-upload-error-message="Upload a picture with Mauli to complete this item"
+                                        target="_blank" rel="noopener">Upload</a>
+                                </div>
+                                <p class="bucketlist-card__error" data-upload-error role="alert"></p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="get-a-tattoo">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </span>
+                                    <h2>Get a Tattoo</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="get-a-tattoo" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Get a Tattoo complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>Commitment is scary, especially in your 20s. Luckily, this one only lasts a few
+                                    days. Get inked at the tattoo station. #noragrets</p>
+                            </article>
+
+                            <article class="bucketlist-card" data-bucketlist-item="finish-a-5k">
+                                <div class="bucketlist-card__header">
+                                    <span class="bucketlist-card__icon" aria-hidden="true">
+                                        <i class="fas fa-running"></i>
+                                    </span>
+                                    <h2>Finish a 5K</h2>
+                                    <button class="bucketlist-card__checkbox" type="button"
+                                        data-completion-toggle="finish-a-5k" role="checkbox" aria-checked="false"
+                                        aria-label="Mark Finish a 5k complete">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <p>The feeling of finishing a race is like no other. Hope you brought your running
+                                    shoes... Just kidding! We're here to party, not exercise. One victory lap around
+                                    MJ's backyard counts tonight!</p>
                             </article>
                         </div>
                     </div>
@@ -120,6 +391,9 @@
             <ul class="menu">
                 <li>&copy; Mauli Bhatt 2026</li>
                 <li><a href="https://mauli.dev">mauli.dev</a></li>
+                <li id="sign-out-menu-item" class="bucketlist-hidden" aria-hidden="true">
+                    <a href="#" id="sign-out">Sign Out</a>
+                </li>
             </ul>
         </div>
     </footer>

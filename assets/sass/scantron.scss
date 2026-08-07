@@ -1,0 +1,131 @@
+/* Scantron page styles. Compile to assets/css/scantron.css. */
+.scantron-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: solid 1px rgba(255, 51, 173, 0.35);
+    border-radius: 0.25em;
+    margin: 0 auto;
+    max-width: 50em;
+    padding: 2em;
+
+    h1,
+    &__instructions {
+        text-align: center;
+    }
+
+    &__instructions {
+        margin-bottom: 2em;
+    }
+
+    &__actions {
+        margin-top: 2em;
+        text-align: center;
+    }
+}
+
+.scantron-questions {
+    list-style-position: outside;
+    margin: 0 0 0 2.5em;
+    padding: 0;
+
+    > li {
+        border-bottom: solid 1px rgba(255, 255, 255, 0.12);
+        padding: 1.15em 0 1.15em 0.5em;
+
+        &::marker {
+            color: #ff33ad;
+            font-weight: bold;
+        }
+    }
+
+    fieldset {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 0;
+    }
+
+    legend {
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.scantron-bubbles {
+    display: flex;
+    gap: 1em;
+
+    input {
+        height: 1px;
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    input + label {
+        align-items: center;
+        border: solid 2px #1cd9d6;
+        border-radius: 50%;
+        color: #1cd9d6;
+        cursor: pointer;
+        display: inline-flex;
+        flex: 0 0 3rem;
+        font-size: 0.75em;
+        height: 3rem;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        width: 3rem;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    input:checked + label {
+        background: #ff33ad;
+        border-color: #ff33ad;
+        color: transparent;
+    }
+
+    input:focus + label {
+        box-shadow: 0 0 0 2px #091020, 0 0 0 4px #1cd9d6;
+    }
+}
+
+.scantron-status {
+    color: #ff33ad;
+    font-weight: bold;
+    margin: 1.5em 0 0;
+    text-align: center;
+
+    &.is-passing {
+        color: #1cd9d6;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .scantron-panel {
+        padding: 1.25em;
+    }
+
+    .scantron-questions {
+        margin-left: 1.75em;
+
+        fieldset {
+            justify-content: center;
+        }
+    }
+
+    .scantron-bubbles {
+        gap: 0.65em;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

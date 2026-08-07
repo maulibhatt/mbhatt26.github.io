@@ -1,0 +1,85 @@
+/* Before-30 bucket-list page styles. Compile to assets/css/twentynine.css. */
+.twentynine-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: solid 1px rgba(255, 51, 173, 0.35);
+    border-radius: 0.25em;
+    margin: 0 auto;
+    max-width: 52em;
+    padding: 2em;
+
+    h1,
+    label {
+        text-align: center;
+    }
+
+    label {
+        font-size: 0.9em;
+        margin-bottom: 0.75em;
+    }
+
+    input {
+        background: rgba(255, 51, 173, 0.08);
+        border-color: rgba(255, 51, 173, 0.45);
+        text-align: center;
+    }
+
+    &__actions {
+        margin-top: 1.5em;
+        text-align: center;
+    }
+}
+
+.twentynine-list {
+    counter-reset: twentynine-item;
+    list-style: none;
+    margin: 2em 0 0;
+    padding: 0;
+
+    li {
+        background: rgba(28, 217, 214, 0.07);
+        border: solid 1px rgba(28, 217, 214, 0.25);
+        border-radius: 0.25em;
+        counter-increment: twentynine-item;
+        margin-bottom: 0.85em;
+        padding: 1em 1.25em 1em 3.5em;
+        position: relative;
+
+        &::before {
+            color: #1cd9d6;
+            content: counter(twentynine-item) ".";
+            font-weight: bold;
+            left: 1.25em;
+            position: absolute;
+            top: 1em;
+        }
+    }
+
+    p {
+        margin: 0 0 0.35em;
+        overflow-wrap: anywhere;
+    }
+
+    small {
+        color: #ff33ad;
+        display: block;
+        font-weight: bold;
+        text-align: right;
+    }
+}
+
+.twentynine-status {
+    color: #ff33ad;
+    margin: 1.5em 0 0;
+    text-align: center;
+
+    &:empty {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .twentynine-panel {
+        padding: 1.25em;
+    }
+
+}

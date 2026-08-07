@@ -59,6 +59,49 @@
   overflow-wrap: anywhere;
 }
 
+.leaderboard__entrant {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65em;
+}
+
+.leaderboard__badge {
+  border: solid 1px currentColor;
+  border-radius: 2em;
+  display: inline-block;
+  font-size: 0.7em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.45em 0.65em;
+  text-transform: uppercase;
+}
+
+.leaderboard__badge--1 {
+  color: #ffd166;
+}
+
+.leaderboard__badge--2 {
+  color: #1cd9d6;
+}
+
+.leaderboard__badge--3 {
+  color: #ff33ad;
+}
+
+.leaderboard__current-user {
+  border: solid 1px #1cd9d6;
+  border-radius: 2em;
+  color: #1cd9d6;
+  font-size: 0.65em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.4em 0.65em;
+  text-transform: uppercase;
+}
+
 .leaderboard__progress {
   background: rgba(255, 255, 255, 0.08);
   border: solid 1px rgba(255, 255, 255, 0.15);
@@ -94,5 +137,13 @@
   .leaderboard__row {
     gap: 0.75em;
     grid-template-columns: 1fr;
+  }
+
+  .leaderboard__entrant {
+    justify-content: flex-start;
+  }
+
+  .leaderboard__badge {
+    margin-left: auto;
   }
 }

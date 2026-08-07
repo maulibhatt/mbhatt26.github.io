@@ -3796,6 +3796,31 @@ input, select, textarea {
         padding: 20px 0;
     }
 
+    @media screen and (max-width: 480px) {
+        #footer.page_footer > .inner .menu {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        #footer.page_footer > .inner .menu > li {
+            display: inline-block;
+            line-height: 1;
+            margin: 0;
+        }
+
+        #footer.page_footer > .inner .menu > li:first-child {
+            flex: 0 0 100%;
+            margin-bottom: 0.75em;
+        }
+
+        #footer.page_footer > .inner .menu > li:nth-child(3) {
+            border-left: solid 1px rgba(255, 255, 255, 0.15);
+            margin-left: auto;
+            padding-left: 1.5em;
+        }
+    }
+
 
 /* Sidebar */
 

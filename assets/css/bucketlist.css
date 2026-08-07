@@ -79,6 +79,165 @@
   margin-bottom: 0;
 }
 
+.bucketlist-card.is-completed:not(.is-expanded) {
+  cursor: pointer;
+  padding-bottom: 1.5em;
+}
+
+.bucketlist-card.is-completed:not(.is-expanded) > :not(.bucketlist-card__header) {
+  display: none;
+}
+
+.bucketlist-card.is-completed:not(.is-expanded) .bucketlist-card__header {
+  margin-bottom: 0;
+}
+
+.bucketlist-card.is-completed:focus {
+  outline: solid 2px rgba(28, 217, 214, 0.65);
+  outline-offset: 0.2em;
+}
+
+.bucketlist-card.is-completed:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.bucketlist-card__header {
+  align-items: center;
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 4.2em minmax(0, 1fr) 4.2em;
+  margin-bottom: 1.25em;
+}
+
+.bucketlist-card__header h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.bucketlist-card__icon {
+  align-items: center;
+  background: rgba(255, 51, 173, 0.12);
+  border: solid 1px rgba(255, 51, 173, 0.35);
+  border-radius: 50%;
+  color: #ff33ad;
+  display: inline-flex;
+  font-size: 1.4em;
+  height: 3em;
+  justify-content: center;
+  padding: 0.75em;
+  flex: 0 0 auto;
+  width: 3em;
+}
+
+.bucketlist-card.is-completed .bucketlist-card__icon {
+  background: rgba(28, 217, 214, 0.12);
+  border-color: rgba(28, 217, 214, 0.35);
+  color: #1cd9d6;
+}
+
+.bucketlist-card__checkbox {
+  align-items: center;
+  background: transparent;
+  border: solid 2px rgba(255, 51, 173, 0.65);
+  border-radius: 0.25em;
+  box-shadow: none;
+  color: #312450;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 1em;
+  height: 2.75em;
+  justify-content: center;
+  justify-self: end;
+  line-height: 1;
+  padding: 0;
+  width: 2.75em;
+}
+
+.bucketlist-card__checkbox .fa-check {
+  opacity: 0;
+}
+
+.bucketlist-card__checkbox::after {
+  display: none;
+}
+
+.bucketlist-card__checkbox:hover,
+.bucketlist-card__checkbox:focus {
+  background: rgba(255, 51, 173, 0.16);
+  border-color: #ff33ad !important;
+}
+
+.bucketlist-card__checkbox.is-completed {
+  background: transparent;
+  border-color: #1cd9d6 !important;
+  color: #1cd9d6 !important;
+}
+
+.bucketlist-card__checkbox.is-completed .fa-check {
+  opacity: 1;
+}
+
+.bucketlist-card__checkbox.is-completed:hover,
+.bucketlist-card__checkbox.is-completed:focus,
+.bucketlist-card__checkbox.is-completed:active {
+  background: rgba(28, 217, 214, 0.08);
+  border-color: #1cd9d6 !important;
+}
+
+.bucketlist-card__checkbox:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.bucketlist-card__field {
+  margin: 2.25em auto 0;
+  max-width: 26em;
+  text-align: center;
+}
+
+.bucketlist-card__field label {
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5em;
+}
+
+.bucketlist-card__field input,
+.bucketlist-card__field textarea {
+  background: rgba(255, 51, 173, 0.08);
+  border-color: rgba(255, 51, 173, 0.45);
+  text-align: center;
+}
+
+.bucketlist-card__field input:focus,
+.bucketlist-card__field textarea:focus {
+  border-color: #ff33ad;
+  box-shadow: 0 0 0 1px #ff33ad;
+}
+
+.bucketlist-card.is-completed .bucketlist-card__field input,
+.bucketlist-card.is-completed .bucketlist-card__field textarea {
+  background: rgba(28, 217, 214, 0.1);
+  border-color: rgba(28, 217, 214, 0.45);
+  opacity: 1;
+}
+
+.bucketlist-card.is-completed .bucketlist-card__field input:focus,
+.bucketlist-card.is-completed .bucketlist-card__field textarea:focus {
+  border-color: #1cd9d6;
+  box-shadow: 0 0 0 1px #1cd9d6;
+}
+
+.bucketlist-card__error {
+  color: #ff33ad;
+  font-size: 0.8em;
+  margin-top: 0.75em !important;
+  text-align: center;
+}
+
+.bucketlist-card__error:empty {
+  display: none;
+}
+
 .bucketlist-card > :last-child {
   margin-bottom: 0;
 }
@@ -88,9 +247,17 @@
   position: static;
 }
 
-.bucketlist-card__actions [data-completion-toggle].primary:hover,
-.bucketlist-card__actions [data-completion-toggle].primary:focus {
+.bucketlist-card__actions [data-upload-link].primary,
+.bucketlist-card__actions [data-upload-link].primary:hover,
+.bucketlist-card__actions [data-upload-link].primary:focus,
+.bucketlist-card__actions [data-upload-link].primary:active,
+.bucketlist-card__actions [data-completion-gate].primary,
+.bucketlist-card__actions [data-completion-gate].primary:hover,
+.bucketlist-card__actions [data-completion-gate].primary:focus,
+.bucketlist-card__actions [data-completion-gate].primary:active {
+  background-color: rgba(28, 217, 214, 0.1);
   border-color: #1cd9d6 !important;
+  color: #1cd9d6 !important;
 }
 
 .bucketlist-card--bonus {
