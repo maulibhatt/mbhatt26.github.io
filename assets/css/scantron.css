@@ -3,9 +3,9 @@
 .scantron-panel h1, .scantron-panel__instructions { text-align: center; }
 .scantron-panel__instructions { margin-bottom: 2em; }
 .scantron-panel__actions { margin-top: 2em; text-align: center; }
-.scantron-questions { list-style-position: outside; margin: 0 0 0 2.5em; padding: 0; }
-.scantron-questions > li { border-bottom: solid 1px rgba(255,255,255,.12); padding: 1.15em 0 1.15em .5em; }
-.scantron-questions > li::marker { color: #ff33ad; font-weight: bold; }
+.scantron-questions { counter-reset: scantron-question; list-style: none; margin: 0; padding: 0; }
+.scantron-questions > li { border-bottom: solid 1px rgba(255,255,255,.12); counter-increment: scantron-question; padding: 1.15em .25em 1.15em 3em; position: relative; }
+.scantron-questions > li::before { color: #ff33ad; content: counter(scantron-question) "."; font-weight: bold; left: .65em; position: absolute; top: 50%; transform: translateY(-50%); }
 .scantron-questions fieldset { align-items: center; display: flex; justify-content: flex-end; margin: 0; padding: 0; }
 .scantron-questions legend { font-weight: bold; margin: 0; padding: 0; }
 .scantron-bubbles { display: flex; gap: 1em; }
@@ -17,4 +17,4 @@
 .scantron-status { color: #ff33ad; font-weight: bold; margin: 1.5em 0 0; text-align: center; }
 .scantron-status.is-passing { color: #1cd9d6; }
 .scantron-status:empty { display: none; }
-@media screen and (max-width:600px) { .scantron-panel { padding: 1.25em; } .scantron-questions { margin-left: 1.75em; } .scantron-questions fieldset { justify-content: center; } .scantron-bubbles { gap: .65em; justify-content: space-between; width: 100%; } }
+@media screen and (max-width:600px) { .scantron-panel { padding: 1.25em; } .scantron-questions > li { padding-left: 2.5em; padding-right: 0; } .scantron-questions fieldset { justify-content: center; } .scantron-bubbles { gap: .4em; justify-content: space-between; width: 100%; } .scantron-bubbles input + label { flex-basis: 2.75rem; height: 2.75rem; width: 2.75rem; } }

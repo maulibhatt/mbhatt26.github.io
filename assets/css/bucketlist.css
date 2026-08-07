@@ -3,6 +3,10 @@
   display: none !important;
 }
 
+.bucketlist-locked {
+  display: none !important;
+}
+
 .page-loader {
   align-items: center;
   color: #1cd9d6;
@@ -112,6 +116,28 @@
 .bucketlist-card__header h2 {
   margin: 0;
   text-align: center;
+}
+
+.bucketlist-card__title {
+  text-align: center;
+}
+
+.bucketlist-card__title h2 {
+  text-align: center;
+}
+
+.bucketlist-card__unlock-badge {
+  border: solid 1px #1cd9d6;
+  border-radius: 2em;
+  color: #1cd9d6;
+  display: inline-block;
+  font-size: 0.6em;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  margin-top: 0.65em;
+  padding: 0.45em 0.7em;
+  text-transform: uppercase;
 }
 
 .bucketlist-card__icon {

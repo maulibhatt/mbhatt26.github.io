@@ -56,7 +56,11 @@ function isAnswerKeyConfigured() {
 }
 
 async function markExamComplete(username) {
-    const profileSnapshot = await get(ref(database, `users/${username}`));
+    const [profileSnapshot, totalSnapshot, finishedAtSnapshot] = await Promise.all([
+        get(ref(database, `users/${username}`)),
+        get(ref(database, "leaderboard/total")),
+        get(ref(database, `leaderboard/users/${username}/finishedAt`))
+    ]);
 
     if (!profileSnapshot.exists()) {
         throw new Error("Select your bucket-list profile before taking the exam.");
@@ -72,15 +76,19 @@ async function markExamComplete(username) {
     };
     const completed = Object.values(nextBucketList).filter(item => item?.completed === true).length;
 
-    await update(ref(database), {
+    const updates = {
         [`users/${username}/updatedAt`]: serverTimestamp(),
         [`users/${username}/bucketList/${ITEM_ID}/completed`]: true,
-        [`leaderboard/users/${username}`]: {
-            username,
-            completed,
-            updatedAt: serverTimestamp()
-        }
-    });
+        [`leaderboard/users/${username}/username`]: username,
+        [`leaderboard/users/${username}/completed`]: completed,
+        [`leaderboard/users/${username}/updatedAt`]: serverTimestamp()
+    };
+
+    if (completed === Number(totalSnapshot.val()) && !finishedAtSnapshot.exists()) {
+        updates[`leaderboard/users/${username}/finishedAt`] = serverTimestamp();
+    }
+
+    await update(ref(database), updates);
 }
 
 form.addEventListener("submit", async event => {

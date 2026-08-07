@@ -40,6 +40,7 @@ const signOutButton = document.querySelector("#sign-out");
 const friendUsernameInput = document.querySelector("#new-friend-username");
 const friendUsernameError = document.querySelector("#new-friend-error");
 const bucketListCards = document.querySelectorAll(".bucketlist-card");
+const unlockableCards = document.querySelectorAll("[data-unlock-key]");
 const completionButtons = document.querySelectorAll("[data-completion-toggle]");
 const requiredInputs = document.querySelectorAll("[data-required-input]");
 const uploadLinks = document.querySelectorAll("[data-upload-link]");
@@ -47,6 +48,21 @@ const completionGateLinks = document.querySelectorAll("[data-completion-gate]");
 const bucketListItemIds = Array.from(completionButtons, button => button.dataset.completionToggle);
 const hiddenClass = "bucketlist-hidden";
 let activeBucketList = {};
+
+onValue(ref(database, "bucketListConfig"),
+    snapshot => {
+        const unlockConfig = snapshot.val() || {};
+
+        unlockableCards.forEach(card => {
+            const isUnlocked = unlockConfig[card.dataset.unlockKey]?.unlocked === true;
+
+            card.classList.toggle("bucketlist-locked", !isUnlocked);
+        });
+    },
+    error => {
+        console.error("Unable to load bucket-list unlock settings:", error);
+    }
+);
 
 function toggleCompletedCard(card) {
     if (card.dataset.completed !== "true") {
@@ -182,16 +198,23 @@ async function selectProfile(rawUsername) {
             bucketList: {}
         };
 
+        const record = leaderboardRecord(username, profile.bucketList);
+
         await update(ref(database), {
             [`users/${username}`]: profile,
-            [`leaderboard/users/${username}`]: leaderboardRecord(username, profile.bucketList)
+            [`leaderboard/users/${username}/username`]: record.username,
+            [`leaderboard/users/${username}/completed`]: record.completed,
+            [`leaderboard/users/${username}/updatedAt`]: record.updatedAt
         });
     } else {
         // Adds existing users to the separate leaderboard the next time they sign in.
-        await update(
-            ref(database, `leaderboard/users/${username}`),
-            leaderboardRecord(username, profile.bucketList)
-        );
+        const record = leaderboardRecord(username, profile.bucketList);
+
+        await update(ref(database), {
+            [`leaderboard/users/${username}/username`]: record.username,
+            [`leaderboard/users/${username}/completed`]: record.completed,
+            [`leaderboard/users/${username}/updatedAt`]: record.updatedAt
+        });
     }
 
     localStorage.setItem("bucketlistUsername", username);
@@ -477,14 +500,25 @@ async function updateItem(username, itemId, changes) {
             ...changes
         }
     };
+    const record = leaderboardRecord(username, nextBucketList);
     const updates = {
         [`users/${username}/updatedAt`]: serverTimestamp(),
-        [`leaderboard/users/${username}`]: leaderboardRecord(username, nextBucketList)
+        [`leaderboard/users/${username}/username`]: record.username,
+        [`leaderboard/users/${username}/completed`]: record.completed,
+        [`leaderboard/users/${username}/updatedAt`]: record.updatedAt
     };
 
     Object.entries(changes).forEach(([field, value]) => {
         updates[`users/${username}/bucketList/${itemId}/${field}`] = value;
     });
+
+    if (record.completed === bucketListItemIds.length) {
+        const finishedAtSnapshot = await get(ref(database, `leaderboard/users/${username}/finishedAt`));
+
+        if (!finishedAtSnapshot.exists()) {
+            updates[`leaderboard/users/${username}/finishedAt`] = serverTimestamp();
+        }
+    }
 
     await update(ref(database), updates);
 }

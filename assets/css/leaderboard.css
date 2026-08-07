@@ -111,6 +111,10 @@
   position: relative;
 }
 
+.leaderboard__progress-group {
+  min-width: 0;
+}
+
 .leaderboard__fill {
   background: linear-gradient(90deg, #1cd9d6, #ff33ad);
   height: 100%;
@@ -123,6 +127,14 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.leaderboard__finished-at {
+  color: #1cd9d6;
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.55em;
+  text-align: center;
 }
 
 #leaderboard-status:empty {

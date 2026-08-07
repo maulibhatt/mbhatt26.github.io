@@ -45,6 +45,14 @@ function completedCount(entry = {}) {
     return Math.max(0, Math.floor(Number(entry.completed) || 0));
 }
 
+function formatEasternTime(timestamp) {
+    return new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone: "America/New_York"
+    }).format(new Date(timestamp));
+}
+
 function createLeaderboardRow(entryKey, entry, globalTotal, rank) {
     const username = entry.username || entryKey;
     const isCurrentUser = entryKey === rememberedUsername;
@@ -55,6 +63,7 @@ function createLeaderboardRow(entryKey, entry, globalTotal, rank) {
     const row = document.createElement("div");
     const nameGroup = document.createElement("div");
     const name = document.createElement("strong");
+    const progressGroup = document.createElement("div");
     const progress = document.createElement("div");
     const fill = document.createElement("div");
     const value = document.createElement("span");
@@ -84,6 +93,7 @@ function createLeaderboardRow(entryKey, entry, globalTotal, rank) {
     }
 
     progress.className = "leaderboard__progress";
+    progressGroup.className = "leaderboard__progress-group";
     progress.setAttribute("role", "progressbar");
     progress.setAttribute("aria-label", `${name.textContent}'s bucket-list completion`);
     progress.setAttribute("aria-valuemin", "0");
@@ -94,7 +104,17 @@ function createLeaderboardRow(entryKey, entry, globalTotal, rank) {
     value.className = "leaderboard__value";
     value.textContent = `${completed} ${completed === 1 ? "item" : "items"} completed`;
     progress.append(fill, value);
-    row.append(nameGroup, progress);
+    progressGroup.append(progress);
+
+    if (globalTotal > 0 && completed === globalTotal && Number.isFinite(Number(entry.finishedAt))) {
+        const finishedAt = document.createElement("small");
+
+        finishedAt.className = "leaderboard__finished-at";
+        finishedAt.textContent = `Finished at ${formatEasternTime(Number(entry.finishedAt))}`;
+        progressGroup.append(finishedAt);
+    }
+
+    row.append(nameGroup, progressGroup);
     return row;
 }
 
@@ -106,14 +126,44 @@ function renderLeaderboard(leaderboard = {}) {
             entryKey,
             entry: entry || {},
             completed: completedCount(entry),
+            finishedAt: Number(entry?.finishedAt),
             username: entry?.username || entryKey
         }))
-        .sort((a, b) => b.completed - a.completed || a.username.localeCompare(b.username));
-    const topScores = [...new Set(
-        sortedEntries.map(entry => entry.completed).filter(completed => completed > 0)
+        .sort((a, b) => {
+            const completionDifference = b.completed - a.completed;
+
+            if (completionDifference) {
+                return completionDifference;
+            }
+
+            if (globalTotal > 0 && a.completed === globalTotal) {
+                const aTime = Number.isFinite(a.finishedAt) ? a.finishedAt : Number.POSITIVE_INFINITY;
+                const bTime = Number.isFinite(b.finishedAt) ? b.finishedAt : Number.POSITIVE_INFINITY;
+
+                if (aTime !== bTime) {
+                    return aTime - bTime;
+                }
+            }
+
+            return a.username.localeCompare(b.username);
+        });
+    const rankingKey = entry => {
+        if (globalTotal > 0 && entry.completed === globalTotal && Number.isFinite(entry.finishedAt)) {
+            return `finished:${entry.finishedAt}`;
+        }
+
+        return `completed:${entry.completed}`;
+    };
+    const topRanks = [...new Set(
+        sortedEntries.filter(entry => entry.completed > 0).map(rankingKey)
     )].slice(0, 3);
-    const leaderboardRows = sortedEntries.map(({ entryKey, entry, completed }) =>
-        createLeaderboardRow(entryKey, entry, globalTotal, topScores.indexOf(completed) + 1)
+    const leaderboardRows = sortedEntries.map(entry =>
+        createLeaderboardRow(
+            entry.entryKey,
+            entry.entry,
+            globalTotal,
+            topRanks.indexOf(rankingKey(entry)) + 1
+        )
     );
 
     rows.replaceChildren(...leaderboardRows);
