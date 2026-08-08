@@ -563,9 +563,15 @@ completionButtons.forEach(button => {
         const completionGate = card?.querySelector("[data-completion-gate]");
         const requiredInput = card?.querySelector(`[data-required-input="${itemId}"]`);
         const requiredInputError = card?.querySelector("[data-required-input-error]");
+        const requiresTwentyNineSubmission = card?.hasAttribute("data-twentynine-submission-required");
+        const twentyNineSubmissionError = card?.querySelector("[data-twentynine-submission-error]");
 
         if (requiredInputError) {
             requiredInputError.textContent = "";
+        }
+
+        if (twentyNineSubmissionError) {
+            twentyNineSubmissionError.textContent = "";
         }
 
         if (requiredInput && !isCompleted && !requiredInput.value.trim()) {
@@ -599,6 +605,40 @@ completionButtons.forEach(button => {
 
             completionGate.focus();
             return;
+        }
+
+        if (requiresTwentyNineSubmission && !isCompleted) {
+            button.disabled = true;
+
+            try {
+                const submissionsSnapshot = await get(ref(database, "twentynine/items"));
+                const hasSubmission = Object.values(submissionsSnapshot.val() || {}).some(entry =>
+                    entry?.username === username &&
+                    typeof entry.text === "string" &&
+                    entry.text.trim().length > 0
+                );
+
+                if (!hasSubmission) {
+                    if (twentyNineSubmissionError) {
+                        twentyNineSubmissionError.textContent =
+                            "Add at least one idea to the Twenty Nine list before completing this item";
+                    }
+
+                    card?.querySelector("a[href='twentynine.html']")?.focus();
+                    return;
+                }
+            } catch (error) {
+                console.error("Unable to verify Twenty Nine submission:", error);
+
+                if (twentyNineSubmissionError) {
+                    twentyNineSubmissionError.textContent =
+                        "Unable to verify your Twenty Nine entry. Please try again";
+                }
+
+                return;
+            } finally {
+                button.disabled = false;
+            }
         }
 
         button.disabled = true;

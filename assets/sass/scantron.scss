@@ -22,6 +22,20 @@
     }
 }
 
+.scantron-hidden {
+    display: none !important;
+}
+
+.scantron-auth-gate {
+    text-align: center;
+
+    p {
+        color: #ff33ad;
+        font-weight: bold;
+        margin-bottom: 1.25em;
+    }
+}
+
 .scantron-questions {
     counter-reset: scantron-question;
     list-style: none;

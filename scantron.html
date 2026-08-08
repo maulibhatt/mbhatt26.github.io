@@ -44,10 +44,14 @@
             <div class="inner">
                 <section class="scantron-panel" aria-labelledby="scantron-title">
                     <h1 id="scantron-title">Scantron</h1>
-                    <p class="scantron-panel__instructions">Choose one answer for every question. You need at least
-                        7/10 to pass.</p>
+                    <div id="scantron-auth-gate" class="scantron-auth-gate">
+                        <p>Please sign in to take the exam!</p>
+                        <a class="button primary" href="bucketlist.html">Sign In</a>
+                    </div>
 
-                    <form id="scantron-form">
+                    <form id="scantron-form" class="scantron-hidden" aria-hidden="true">
+                        <p class="scantron-panel__instructions">Choose one answer for every question. You need at least
+                            7/10 to pass.</p>
                         <ol class="scantron-questions">
                             <li><fieldset><legend class="sr-only">Question 1</legend><div class="scantron-bubbles" data-question="1"></div></fieldset></li>
                             <li><fieldset><legend class="sr-only">Question 2</legend><div class="scantron-bubbles" data-question="2"></div></fieldset></li>

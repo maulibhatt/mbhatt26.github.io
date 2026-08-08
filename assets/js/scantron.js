@@ -31,6 +31,7 @@ const database = getDatabase(app);
 const form = document.querySelector("#scantron-form");
 const status = document.querySelector("#scantron-status");
 const submitButton = form.querySelector("button[type='submit']");
+const authGate = document.querySelector("#scantron-auth-gate");
 const signOutMenuItem = document.querySelector("#sign-out-menu-item");
 const signOutButton = document.querySelector("#sign-out");
 
@@ -39,14 +40,51 @@ function setSignOutVisible(isVisible) {
     signOutMenuItem.setAttribute("aria-hidden", String(!isVisible));
 }
 
+function setExamAvailable(isAvailable) {
+    authGate.classList.toggle("scantron-hidden", isAvailable);
+    authGate.setAttribute("aria-hidden", String(isAvailable));
+    form.classList.toggle("scantron-hidden", !isAvailable);
+    form.setAttribute("aria-hidden", String(!isAvailable));
+}
+
 const rememberedUsername = localStorage.getItem("bucketlistUsername");
-setSignOutVisible(Boolean(rememberedUsername && /^[a-z0-9_-]{3,24}$/.test(rememberedUsername)));
+const hasRememberedUsername = Boolean(
+    rememberedUsername && /^[a-z0-9_-]{3,24}$/.test(rememberedUsername)
+);
+
+setSignOutVisible(false);
+setExamAvailable(false);
+
+if (hasRememberedUsername) {
+    get(ref(database, `users/${rememberedUsername}`))
+        .then(snapshot => {
+            if (localStorage.getItem("bucketlistUsername") !== rememberedUsername) {
+                return;
+            }
+
+            if (!snapshot.exists()) {
+                localStorage.removeItem("bucketlistUsername");
+                return;
+            }
+
+            setSignOutVisible(true);
+            setExamAvailable(true);
+        })
+        .catch(error => {
+            console.error("Unable to verify bucket-list profile:", error);
+            setSignOutVisible(false);
+            setExamAvailable(false);
+        });
+} else {
+    localStorage.removeItem("bucketlistUsername");
+}
 
 signOutButton.addEventListener("click", event => {
     event.preventDefault();
     localStorage.removeItem("bucketlistUsername");
     setSignOutVisible(false);
-    status.textContent = "You have signed out. Return to the bucket list to select a profile.";
+    setExamAvailable(false);
+    status.textContent = "";
 });
 
 document.querySelectorAll("[data-question]").forEach((container, questionIndex) => {
