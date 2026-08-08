@@ -31,6 +31,23 @@ const database = getDatabase(app);
 const form = document.querySelector("#scantron-form");
 const status = document.querySelector("#scantron-status");
 const submitButton = form.querySelector("button[type='submit']");
+const signOutMenuItem = document.querySelector("#sign-out-menu-item");
+const signOutButton = document.querySelector("#sign-out");
+
+function setSignOutVisible(isVisible) {
+    signOutMenuItem.classList.toggle("bucketlist-hidden", !isVisible);
+    signOutMenuItem.setAttribute("aria-hidden", String(!isVisible));
+}
+
+const rememberedUsername = localStorage.getItem("bucketlistUsername");
+setSignOutVisible(Boolean(rememberedUsername && /^[a-z0-9_-]{3,24}$/.test(rememberedUsername)));
+
+signOutButton.addEventListener("click", event => {
+    event.preventDefault();
+    localStorage.removeItem("bucketlistUsername");
+    setSignOutVisible(false);
+    status.textContent = "You have signed out. Return to the bucket list to select a profile.";
+});
 
 document.querySelectorAll("[data-question]").forEach((container, questionIndex) => {
     const questionNumber = questionIndex + 1;

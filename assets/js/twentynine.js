@@ -26,8 +26,15 @@ const input = document.querySelector("#twentynine-entry");
 const submitButton = form.querySelector("button[type='submit']");
 const list = document.querySelector("#twentynine-list");
 const status = document.querySelector("#twentynine-status");
-const username = localStorage.getItem("bucketlistUsername");
+const signOutMenuItem = document.querySelector("#sign-out-menu-item");
+const signOutButton = document.querySelector("#sign-out");
+let username = localStorage.getItem("bucketlistUsername");
 let canSubmit = false;
+
+function setSignOutVisible(isVisible) {
+    signOutMenuItem.classList.toggle("bucketlist-hidden", !isVisible);
+    signOutMenuItem.setAttribute("aria-hidden", String(!isVisible));
+}
 
 function setFormEnabled(isEnabled) {
     canSubmit = isEnabled;
@@ -47,10 +54,26 @@ function createListItem(entry = {}) {
 }
 
 setFormEnabled(false);
+setSignOutVisible(Boolean(username && /^[a-z0-9_-]{3,24}$/.test(username)));
+
+signOutButton.addEventListener("click", event => {
+    event.preventDefault();
+    localStorage.removeItem("bucketlistUsername");
+    username = null;
+    setFormEnabled(false);
+    setSignOutVisible(false);
+    status.innerHTML = 'You have signed out. Return to the <a href="bucketlist.html">bucket list</a> to select a profile.';
+});
 
 if (username && /^[a-z0-9_-]{3,24}$/.test(username)) {
-    get(ref(database, `users/${username}`))
+    const usernameBeingVerified = username;
+
+    get(ref(database, `users/${usernameBeingVerified}`))
         .then(snapshot => {
+            if (username !== usernameBeingVerified) {
+                return;
+            }
+
             if (!snapshot.exists()) {
                 throw new Error("That profile no longer exists.");
             }
@@ -59,6 +82,10 @@ if (username && /^[a-z0-9_-]{3,24}$/.test(username)) {
             status.textContent = "";
         })
         .catch(error => {
+            if (username !== usernameBeingVerified) {
+                return;
+            }
+
             console.error("Unable to verify profile:", error);
             status.innerHTML = 'Return to the <a href="bucketlist.html">bucket list</a> and select your profile first.';
         });
