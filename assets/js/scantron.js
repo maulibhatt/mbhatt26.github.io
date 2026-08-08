@@ -32,6 +32,7 @@ const form = document.querySelector("#scantron-form");
 const status = document.querySelector("#scantron-status");
 const submitButton = form.querySelector("button[type='submit']");
 const authGate = document.querySelector("#scantron-auth-gate");
+const passedSummary = document.querySelector("#scantron-passed-summary");
 const signOutMenuItem = document.querySelector("#sign-out-menu-item");
 const signOutButton = document.querySelector("#sign-out");
 
@@ -45,6 +46,18 @@ function setExamAvailable(isAvailable) {
     authGate.setAttribute("aria-hidden", String(isAvailable));
     form.classList.toggle("scantron-hidden", !isAvailable);
     form.setAttribute("aria-hidden", String(!isAvailable));
+}
+
+function showPassingScore(bucketList = {}) {
+    const examResult = bucketList[ITEM_ID];
+    const score = Number(examResult?.score);
+    const hasPassingScore = examResult?.completed === true &&
+        Number.isInteger(score) && score >= PASSING_SCORE && score <= correctAnswers.length;
+
+    passedSummary.classList.toggle("scantron-hidden", !hasPassingScore);
+    passedSummary.textContent = hasPassingScore
+        ? `Congratulations on passing the exam! Your score: ${score}/10`
+        : "";
 }
 
 const rememberedUsername = localStorage.getItem("bucketlistUsername");
@@ -67,6 +80,7 @@ if (hasRememberedUsername) {
                 return;
             }
 
+            showPassingScore(snapshot.val()?.bucketList || {});
             setSignOutVisible(true);
             setExamAvailable(true);
         })
@@ -84,6 +98,7 @@ signOutButton.addEventListener("click", event => {
     localStorage.removeItem("bucketlistUsername");
     setSignOutVisible(false);
     setExamAvailable(false);
+    showPassingScore({});
     status.textContent = "";
 });
 
@@ -110,7 +125,7 @@ function isAnswerKeyConfigured() {
     return correctAnswers.length === 10 && correctAnswers.every(answer => answers.includes(answer));
 }
 
-async function markExamComplete(username) {
+async function markExamComplete(username, score) {
     const [profileSnapshot, totalSnapshot, finishedAtSnapshot] = await Promise.all([
         get(ref(database, `users/${username}`)),
         get(ref(database, "leaderboard/total")),
@@ -134,6 +149,7 @@ async function markExamComplete(username) {
     const updates = {
         [`users/${username}/updatedAt`]: serverTimestamp(),
         [`users/${username}/bucketList/${ITEM_ID}/completed`]: true,
+        [`users/${username}/bucketList/${ITEM_ID}/score`]: score,
         [`leaderboard/users/${username}/username`]: username,
         [`leaderboard/users/${username}/completed`]: completed,
         [`leaderboard/users/${username}/updatedAt`]: serverTimestamp()
@@ -175,7 +191,13 @@ form.addEventListener("submit", async event => {
     submitButton.disabled = true;
 
     try {
-        await markExamComplete(username);
+        await markExamComplete(username, score);
+        showPassingScore({
+            [ITEM_ID]: {
+                completed: true,
+                score
+            }
+        });
         status.classList.add("is-passing");
         status.textContent = `You scored ${score}/10. You passed! The item is now complete.`;
     } catch (error) {

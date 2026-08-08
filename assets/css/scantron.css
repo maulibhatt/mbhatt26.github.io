@@ -6,6 +6,7 @@
 .scantron-hidden { display: none !important; }
 .scantron-auth-gate { text-align: center; }
 .scantron-auth-gate p { color: #ff33ad; font-weight: bold; margin-bottom: 1.25em; }
+.scantron-passed-summary { color: #1cd9d6; font-weight: bold; margin-bottom: 1.5em; text-align: center; }
 .scantron-questions { counter-reset: scantron-question; list-style: none; margin: 0; padding: 0; }
 .scantron-questions > li { border-bottom: solid 1px rgba(255,255,255,.12); counter-increment: scantron-question; padding: 1.15em .25em 1.15em 3em; position: relative; }
 .scantron-questions > li::before { color: #ff33ad; content: counter(scantron-question) "."; font-weight: bold; left: .65em; position: absolute; top: 50%; transform: translateY(-50%); }

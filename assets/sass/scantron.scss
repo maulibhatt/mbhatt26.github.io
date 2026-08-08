@@ -36,6 +36,13 @@
     }
 }
 
+.scantron-passed-summary {
+    color: #1cd9d6;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
 .scantron-questions {
     counter-reset: scantron-question;
     list-style: none;
